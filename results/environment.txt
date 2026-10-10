@@ -1,0 +1,15 @@
+Recorded at: 2026-10-10T23:43:53.824390500+05:00
+Java: 25.0.1
+VM: OpenJDK 64-Bit Server VM
+OS: Windows 11 10.0 amd64
+CPU identifier: Intel64 Family 6 Model 183 Stepping 1, GenuineIntel
+Logical processors: 16
+Maximum JVM heap bytes: 268435456
+Base seed: 42; workload seed: 42 + 1009 * n + trial
+Initial warmup: 2000 random 1000-element runs per structure
+Warmup trials per scenario and size: 3
+Measured trials per scenario and size: 9
+Timer: System.nanoTime(); reported statistic: median batch time
+Execution is single-threaded; structure order alternates each trial.
+JVM arguments for this saved run: -Xbatch -Xms256m -Xmx256m
+CPU model: 13th Gen Intel Core i5-13450HX
