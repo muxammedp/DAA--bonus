@@ -104,6 +104,39 @@ Sorted input made the BST much slower. Building the chain requires roughly 1 + 2
 
 When all keys entered one bucket, the Hash Table became much slower. With 10,000 keys, its search batch took 82.8891 ms, compared with 0.4327 ms for the BST. The long collision chain gives quadratic total work for inserting or searching all n keys. Random deletion from the chain also has quadratic expected total work. The BST still received a shuffled insertion order.
 
+## Graphs made with Python
+
+The graphs use the saved measurements in `results/raw.csv`. The Python script also checks that their medians match `results/summary.csv`. Blue shows the BST, and orange shows the Hash Table. Each point is the median of nine trials. The small vertical lines show the middle 50% of the measured times, called the interquartile range (IQR). They show variation between trials, not a confidence interval. Lines connect the three tested sizes; no extra sizes were measured.
+
+### Number of elements vs execution time
+
+![Random input: number of elements vs total batch time](results/plots/random_time_vs_n.png)
+
+Both axes are linear. The x-axis shows 100, 1,000 and 10,000 elements. The y-axis shows the total time for all n operations in milliseconds. The Hash Table was faster for all three operations in this input. Each panel has its own y-axis range.
+
+### Sorted input and hash collisions
+
+![Stress tests: number of elements vs total batch time](results/plots/stress_time_vs_n.png)
+
+The top row shows sorted input, which makes the BST much slower. The bottom row shows deliberate collisions, which make the Hash Table much slower. Both axes use logarithmic scales so that large and small times are visible together. On a logarithmic scale, equal distances show equal ratios, for example, from 100 to 1,000 and from 1,000 to 10,000. Each panel has its own y-axis range. These graphs show measured trends; three input sizes alone cannot prove a time complexity.
+
+### Time per operation
+
+![Random input: average time per operation](results/plots/random_time_per_operation.png)
+
+This graph divides each batch time by n. The y-axis shows microseconds per operation, and the x-axis is logarithmic. The BST's time per operation increases as the input grows. The Hash Table stays relatively low in this favorable workload. These values are averages within each batch. Individual operations were not timed separately, and deletion gradually reduces the structure's size.
+
+### Generate the graphs
+
+Use Python 3.12 and install Matplotlib. The saved graphs were generated with Matplotlib 3.11.2.
+
+```powershell
+python -m pip install -r requirements.txt
+python scripts/plot_results.py
+```
+
+The script saves three PNG images and three SVG versions in `results/plots/`. PNG files appear in this README. SVG files stay sharp when resized. Run the script again after collecting new benchmark results to update the graphs.
+
 ## Why performance differs in practice
 
 - **Tree shape:** a short BST needs fewer comparisons. Sorted input makes this unbalanced BST tall.
@@ -149,6 +182,8 @@ Running the benchmark replaces the CSV and environment files. New times will dif
 - [Raw measurements: 486 rows](results/raw.csv)
 - [Summary: 54 rows, with median, minimum and maximum times](results/summary.csv)
 - [Execution environment](results/environment.txt)
+- [Python plotting script](scripts/plot_results.py)
+- [Graphs in PNG and SVG formats](results/plots/)
 - [Short report to copy by hand](handwritten-report.txt)
 
 The short report is a draft for handwriting. Read it, make sure you can explain each point, and adjust the wording to match your own understanding.
